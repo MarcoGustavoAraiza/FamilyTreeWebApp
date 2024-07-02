@@ -1,0 +1,160 @@
+body, html {
+    padding-top: 100px;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    overflow-x: auto;
+    overflow: visible;
+}
+
+.tree {
+    width: max-content;
+    height: max-content;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Adjusted to center but will work with negative margins */
+    overflow-x: auto;
+    overflow-y: visible;
+    margin-left: -50px; /* Increased left margin shift */
+}
+
+.node {
+    padding-top: 1.9vw;
+    position: relative;
+    border-radius: 15px 0 0 0;
+    transition: all 0.5s;
+}
+
+.person {
+    margin-left: -3vw;
+    float: left;
+    text-align: center;
+    list-style-type: none;
+    position: relative;
+    padding: 2vw 2vw 2vw 2vw;
+    transition: all 0.5s;
+}
+
+.person::before, .person::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 50%;
+    border-top: 0.25vw solid #ccc;
+    height: 2vw;
+}
+
+.person::before {
+    right: 50%;
+}
+
+.person::after {
+    left: 50%;
+    border-left: 0.125vw solid #ccc;
+}
+
+.person:only-child::before, .person:only-child::after {
+    display: none;
+}
+
+.person:only-child {
+    padding-top: 0;
+}
+
+.person:first-child::before, .person:last-child::after {
+    border: none;
+}
+
+.tree li:last-child::before {
+    border-right: 0.125vw solid #ccc;
+    border-radius: 0 15px 0 0;
+}
+
+.tree li:first-child::after {
+    border-radius: 15px 0 0 0;
+}
+
+.tree ul ul::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 50%;
+    border-left: 0.125vw solid #ccc;
+    height: 2vw;
+}
+
+.node-container div, .node-spouse-container div {
+    border: 3px solid #ccc;
+    padding: 1vw 0.5vw;
+    text-decoration: none;
+    color: #666;
+    font-family: Arial, Verdana, Tahoma;
+    font-size: 8px;
+    display: inline-block;
+    border-radius: 1.2vw;
+    transition: all 0.5s;
+}
+
+.node-container:hover, .node-spouse-container:hover {
+    z-index: 100;
+}
+
+.node-container:hover div, .node-spouse-container:hover div {
+    background: #b3d7f0;
+    color: #000;
+    border: 3px solid #94a0b4;
+    transform: scale(1.1);
+}
+
+.node-container:hover .innernode, 
+.node-spouse-container:hover .innernode,
+.node-container:hover ~ ul .innernode,
+.node-spouse-container:hover ~ ul .innernode {
+    background: #b3d7f0;
+    color: #000;
+    border: 3px solid #94a0b4;
+    transform: scale(1.1);
+}
+
+.spouse-node::before {
+    content: '';
+    position: absolute;
+    top: 40%;
+    border-top: 0.25vw dashed #ccc;
+    height: 2vw;
+    padding-left: 2.2vw;
+    margin-left: -2.8vw;
+}
+
+.node-spouse-container {
+    position: relative;
+    margin-left: -10px; /* Adjust for left alignment */
+}
+
+.node-spouse-container div {
+    border: 3px solid #ccc;
+    padding: 1vw 0.5vw;
+    text-decoration: none;
+    color: #666;
+    font-family: Arial, Verdana, Tahoma;
+    font-size: 8px;
+    display: inline-block;
+    border-radius: 1.2vw;
+    transition: all 0.5s;
+}
+
+.innernode.has-children {
+    background-color: rgb(211, 231, 242);
+}
+
+.person.unexpanded ul ul {
+    display: none;
+}
+
+.person.unexpanded li:hover > ul {
+    display: block;
+}
+
+.spouse-node {
+    margin-left: 2vw;
+}

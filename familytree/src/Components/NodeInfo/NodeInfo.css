@@ -1,0 +1,30 @@
+.node-info {
+    position: fixed;
+    top: 130px;
+    right: 20px;
+    width: 200px;
+    padding: 20px;
+    background-color: #333; /* Match background color of the top menu bar */
+    color: white; /* Text color white to match top menu bar */
+    border: 1px solid #161515; /* Darker border for better contrast */
+    border-radius: 7px; /* Consistent border radius */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Slightly stronger shadow for depth */
+    z-index: 1000; /* Ensure it stays above other content */
+}
+
+.node-info h3 {
+    margin-top: 0;
+    font-size: 1.2em; /* Slightly larger font size for better readability */
+    margin-bottom: 10px; /* Space between header and content */
+}
+
+.node-info p {
+    margin: 5px 0; /* Margin for paragraphs */
+    font-size: 1em; /* Consistent font size for readability */
+}
+
+/* Add some hover effects for better user experience */
+.node-info:hover {
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Stronger shadow on hover */
+    transition: box-shadow 0.3s ease-in-out; /* Smooth transition for shadow */
+}

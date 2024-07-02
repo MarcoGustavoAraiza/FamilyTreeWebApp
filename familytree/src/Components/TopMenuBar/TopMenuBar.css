@@ -1,0 +1,39 @@
+.top-menu-bar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        background-color: #333;
+        color: white;
+        text-align: center;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        z-index: 1000; /* Ensures the top bar stays above other content */
+    }
+  
+  .top-menu-bar h1 {
+    font-size: 1.5em;
+  }
+
+  .zoom-slider-container {
+    position: absolute; /* Allows precise placement */
+    bottom: 0px; /* Positioned at the bottom */
+    left: 50%; /* Centered horizontally */
+    transform: translateX(-50%); /* Centering adjustment */
+  }
+
+  
+  .top-menu-bar .family-select, .top-menu-bar select {
+    width: 90%;
+    display:inline-block;
+    justify-content: center;
+    /* padding-top: 2px;
+    padding-bottom: 2px; */
+    /* padding-left: 2px;
+    padding-right: 2px; */
+    /* padding: 8px 10px; */
+    border: 4px solid #161515;
+    border-radius: 7px;
+    margin: 0;
+    color: #1a1919;
+}
