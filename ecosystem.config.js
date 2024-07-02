@@ -2,7 +2,7 @@ module.exports = {
     apps: [
       {
         name: 'vite-app',
-        cwd: './frontend',  // Change to frontend directory
+        cwd: './familytree',  // Change to frontend directory
         script: 'npm',
         args: 'run dev',
         env: {
