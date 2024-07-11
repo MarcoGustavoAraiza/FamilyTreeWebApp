@@ -54,9 +54,11 @@ const NodeInfo = ({ hoveredNode, onMouseEnter, onMouseLeave, peopleData }) => {
             <h3>{hoveredNode.name} {hoveredNode.lastname}</h3>
 
             {hoveredNode.image && (
-                <div className="node-info__image">
-                    <img src={hoveredNode.image} alt={hoveredNode.image_note}/>
-                    <p>{hoveredNode.image_note || 'N/A'}</p>
+                <div className="node-info__image-container">
+                    <img src={hoveredNode.image} alt={`${hoveredNode.name} ${hoveredNode.lastname}`} className="node-info__image" />
+                    {hoveredNode.imageAttribution && (
+                        <p className="node-info__image-attribution">{hoveredNode.imageAttribution}</p>
+                    )}
                 </div>
             )}
 

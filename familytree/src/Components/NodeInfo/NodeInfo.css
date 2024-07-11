@@ -29,9 +29,21 @@
     transition: box-shadow 0.3s ease-in-out; /* Smooth transition for shadow */
 }
 
-.node-info__image img {
+
+.node-info__image-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.node-info__image {
     max-width: 100%;
     height: auto;
-    border-radius: 8px;
-    margin-bottom: 1em;
+}
+
+.node-info__image-attribution {
+    font-size: 0.75em; /* Small font size */
+    color: #666; /* Light grey color */
+    margin-top: 4px; /* Small margin to separate from the image */
+    text-align: center; /* Centered text */
 }
