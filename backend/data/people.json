@@ -999,7 +999,8 @@
         "sex": "Male",
         "lastname": "de Jesus Pico",
         "info": "Last Mexican Governor of California.",
-        "image": "http://3.129.127.64/api/images/pio_pico.png"
+        "image": "http://3.129.127.64/api/images/pio_pico.png",
+        "image_note": "Picture attribution: The Orange County Register"
     },
     {
         "id": 59,
