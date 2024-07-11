@@ -55,7 +55,8 @@ const NodeInfo = ({ hoveredNode, onMouseEnter, onMouseLeave, peopleData }) => {
 
             {hoveredNode.image && (
                 <div className="node-info__image">
-                    <img src={hoveredNode.image} alt={`${hoveredNode.image_note}`} />
+                    <img src={hoveredNode.image} />
+                    <p>{hoveredNode.image_note || 'N/A'}</p>
                 </div>
             )}
 
