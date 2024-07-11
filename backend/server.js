@@ -10,13 +10,13 @@ const port = process.env.PORT || 5000;
 app.use(cors());
 
 // Endpoint to get all family names
-app.get('/all-family-names', (req, res) => {
+app.get('api/all-family-names', (req, res) => {
     const allFamilyNames = require('./data/all_family_names.json');
     res.json(allFamilyNames);
 });
 
 // Endpoint to get people data
-app.get('/people', (req, res) => {
+app.get('api/people', (req, res) => {
     const people = require('./data/people.json');
     res.json(people);
 });
