@@ -52,6 +52,13 @@ const NodeInfo = ({ hoveredNode, onMouseEnter, onMouseLeave, peopleData }) => {
     return (
         <div className="node-info" onMouseEnter={onMouseEnter} onMouseLeave={onMouseLeave}>
             <h3>{hoveredNode.name} {hoveredNode.lastname}</h3>
+
+            {hoveredNode.image && (
+                <div className="node-info__image">
+                    <img src={hoveredNode.image} />
+                </div>
+            )}
+
             {isMainFamiliaNode ? (
                 <>
                     <p>Oldest Members:</p>
@@ -68,6 +75,9 @@ const NodeInfo = ({ hoveredNode, onMouseEnter, onMouseLeave, peopleData }) => {
             ) : (
                 <>
                     <p>Birthdate: {hoveredNode.birthdate || 'N/A'}</p>
+                    <p>Birthplace: {hoveredNode.birthplace || 'N/A'}</p>
+                    <p>Deathdate: {hoveredNode.death_date || 'N/A'}</p>
+                    <p>Deathplace: {hoveredNode.death_place || 'N/A'}</p>
                     <p>Sex: {hoveredNode.sex || 'N/A'}</p>
                 
                     {spouse.length > 0 ? (

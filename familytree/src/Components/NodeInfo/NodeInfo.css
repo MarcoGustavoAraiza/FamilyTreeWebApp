@@ -28,3 +28,10 @@
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3); /* Stronger shadow on hover */
     transition: box-shadow 0.3s ease-in-out; /* Smooth transition for shadow */
 }
+
+.node-info__image img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-bottom: 1em;
+}
