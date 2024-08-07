@@ -27,6 +27,7 @@ const FamilyGraph = ({ selectedFamilies, onNodeHover, onNodeLeave, sidebarFamily
     }, []);
 
     const handleNodeHover = node => {
+        console.log(node);
         setHoveredNode(node);
         const person = node ? node.type === 'person' ? peopleData.find(person => person.id === node.id) :
             peopleData.find(person => person.fid == (node.id.replace('-', '')) && person.id === null) : null;
@@ -45,7 +46,7 @@ const FamilyGraph = ({ selectedFamilies, onNodeHover, onNodeLeave, sidebarFamily
         }
 
         if (sidebarFamily) {
-            families = sidebarFamily.map(n => n)
+            families = sidebarFamily.map(n => n);
             setUsingSidebar(true);
         }
 
@@ -57,7 +58,7 @@ const FamilyGraph = ({ selectedFamilies, onNodeHover, onNodeLeave, sidebarFamily
             setRenderedNodes(new Set());
             setClickedNodes([]);
             return;
-        } 
+        }
 
 
 
@@ -65,6 +66,7 @@ const FamilyGraph = ({ selectedFamilies, onNodeHover, onNodeLeave, sidebarFamily
             person.id === null ? {
                 id: person.fid+'-',
                 name: `${person.name} ${person.lastname}`,
+                first: `${person.name} ${person.lastname}`,
                 type: 'family',
                 x: 0,
                 y: 0,
@@ -77,6 +79,7 @@ const FamilyGraph = ({ selectedFamilies, onNodeHover, onNodeLeave, sidebarFamily
             } : {
                 id: person.id,
                 name: `${person.name} ${person.lastname}`,
+                first: spouse.name,
                 type: 'person',
                 x: 0,
                 y: 0,
@@ -111,6 +114,7 @@ const FamilyGraph = ({ selectedFamilies, onNodeHover, onNodeLeave, sidebarFamily
                 setLinks(links.filter(l => chosen_trees.includes(l.tree)));
             }
         }
+
 
     }, [selectedFamilies, sidebarFamily]);
 
@@ -164,7 +168,6 @@ const FamilyGraph = ({ selectedFamilies, onNodeHover, onNodeLeave, sidebarFamily
                     setNodes(currentNodes);
                     setLinks(currentLinks);
 
-                    // removedNodes.forEach(n => {renderedNodes.delete(n)});
                     setRenderedNodes(new Set(renderedNodes));
 
                 } else {
@@ -188,14 +191,14 @@ const FamilyGraph = ({ selectedFamilies, onNodeHover, onNodeLeave, sidebarFamily
         }
     };
 
-    const getImmidiateFamily = (node, current_links) => {
+    const getImmidiateFamily = (node) => {
         const centerX = node.fx;
         const centerY = node.fy;
 
-        const spouseOffsetX = 50;
-        const childOffsetX = 50;
+        const spouseOffsetX = 65;
+        const childOffsetX = 90;
 
-        const parentOffsetY = -25;
+        const parentOffsetY = -40;
 
         const newNodes = [];
         const newLinks = [];
@@ -215,6 +218,7 @@ const FamilyGraph = ({ selectedFamilies, onNodeHover, onNodeLeave, sidebarFamily
                             newNodes.push({
                                 id: spouse.id,
                                 name: `${spouse.name} ${spouse.lastname}`,
+                                first: spouse.name,
                                 type: 'person',
                                 color: 'lightblue',
                                 x: centerX,
@@ -246,6 +250,7 @@ const FamilyGraph = ({ selectedFamilies, onNodeHover, onNodeLeave, sidebarFamily
                             newNodes.push({
                                 id: child.id,
                                 name: `${child.name} ${child.lastname}`,
+                                first: child.name,
                                 type: 'person',
                                 color: 'lightblue',
                                 x: centerX,
@@ -282,6 +287,7 @@ const FamilyGraph = ({ selectedFamilies, onNodeHover, onNodeLeave, sidebarFamily
                     newNodes.push({
                         id: fatherId,
                         name: `${father.name} ${father.lastname}`,
+                        first: father.name,
                         type: type,
                         color: color,
                         x: centerX,
@@ -297,7 +303,7 @@ const FamilyGraph = ({ selectedFamilies, onNodeHover, onNodeLeave, sidebarFamily
                     renderedNodes.add(fatherId);
                 }
             } else if (renderedNodes.has(fatherId)) {
-                if (!current_links.find(l => l.source.id === fatherId && l.target.id === person.id)) {
+                if (!links.find(l => l.source.id === fatherId && l.target.id === person.id)) {
                     newLinks.push({ source: personId, target: fatherId, color: 'green', tree: node.tree });
                 }
             }
@@ -315,6 +321,7 @@ const FamilyGraph = ({ selectedFamilies, onNodeHover, onNodeLeave, sidebarFamily
                     newNodes.push({
                         id: motherId,
                         name: `${mother.name} ${mother.lastname}`,
+                        first: mother.name,
                         type: type,
                         color: color,
                         x: centerX,
@@ -330,13 +337,8 @@ const FamilyGraph = ({ selectedFamilies, onNodeHover, onNodeLeave, sidebarFamily
                     renderedNodes.add(motherId);
                 }
             } else if (renderedNodes.has(motherId)) {
-                console.log("here")
-                current_links.forEach(l => console.log(l))
-                console.log()
-                if (!current_links.find(l => l.source.id === motherId && l.target.id === person.id)) {
+                if (!links.find(l => l.source.id === motherId && l.target.id === person.id)) {
                     newLinks.push({ source: personId, target: motherId, color: 'orange', tree: node.tree });
-                } else {
-                    console.log("here2")
                 }
             }
         }
@@ -354,7 +356,7 @@ const FamilyGraph = ({ selectedFamilies, onNodeHover, onNodeLeave, sidebarFamily
                 const current_node = next_nodes.shift();
                 clickedNodes.push(current_node.id);
 
-                const graphInfo = getImmidiateFamily(current_node, allNewLinks);
+                const graphInfo = getImmidiateFamily(current_node);
                 const newNodes = graphInfo[0];
                 const newLinks = graphInfo[1];
 
@@ -382,11 +384,12 @@ const FamilyGraph = ({ selectedFamilies, onNodeHover, onNodeLeave, sidebarFamily
             nodePointerAreaPaint={(node, color, ctx) => {
                 ctx.fillStyle = color;
                 ctx.beginPath();
-                ctx.arc(node.x, node.y, 12, 0, 2 * Math.PI, false); // Increase the radius for a larger clickable area
+                ctx.arc(node.x, node.y, 12, 0, 2 * Math.PI, false);
                 ctx.fill();
             }}
             nodeCanvasObject={(node, ctx, globalScale) => {
-                const label = node.name;
+                const label = `${node.name.split(' ')[0]} ${node.name.split(' ')[node.name.split(' ').length-1]}`;
+                // const label = `${node.name}`;
                 const isHovered = node.id === (hoveredNode && hoveredNode.id);
                 const fontSize = isHovered ? 14 / globalScale : 11 / globalScale;
                 ctx.font = `${fontSize}px Sans-Serif`;

@@ -14,7 +14,6 @@ const TopMenuBar = ({ onSelectFamily, selectedFamilies, familyData, peopleData }
   );
 
   const handleChange = (selectedOptions) => {
-    console.log(selectedOptions.map(option => (peopleData.find(person => (person.fid === option.value && person.id === null)))))
     onSelectFamily(selectedOptions.map(option => (peopleData.find(person => (person.fid === option.value && person.id === null)))));
   };
 
